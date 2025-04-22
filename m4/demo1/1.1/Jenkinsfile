@@ -4,7 +4,16 @@ pipeline {
             image 'mcr.microsoft.com/dotnet/core/sdk:3.1.101'
         }
     }
+    environment {
+        DOTNET_CLI_HOME = "${WORKSPACE}/.dotnet"
+        DOTNET_ROOT = "${WORKSPACE}/.dotnet"
+    }
     stages {
+        stage('Prepare') {
+            steps {
+                sh 'mkdir -p "$DOTNET_CLI_HOME"'
+            }
+        }
         stage('Verify') {
             steps {
                 sh '''
